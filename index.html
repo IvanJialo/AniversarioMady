@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Mady - 1er Aniversario</title>
+    <meta name="description" content="Una página especial para nuestro primer aniversario">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #ff9a9e 75%, #fad0c4 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .sunset-gradient {
+            background: linear-gradient(135deg, #3498db, #2980b9, #e74c3c, #f39c12, #f1c40f);
+            background-size: 300% 300%;
+            animation: sunset 8s ease infinite;
+        }
+        
+        @keyframes sunset {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .memory-card {
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .carousel-slide {
+            display: none;
+        }
+        
+        .carousel-slide.active {
+            display: block;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+        
+        .carousel-placeholder {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, #3498db, #f39c12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+        
+        /* Añade esto a tu sección de estilos */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+.carousel-nav:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 5px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background: white;
+}
+
+/* Optimización para touch en móviles */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+        
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #3498db, #f39c12);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-8">
+    <!-- Header con efecto sunset -->
+    <header class="sunset-gradient text-white p-6 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div class="relative z-10">
+            <h1 class="text-3xl font-bold mb-2 font-['Dancing_Script'] heart-beat">Para Mady</h1>
+            <div class="w-16 h-1 bg-white mx-auto rounded-full mb-2"></div>
+            <p class="text-blue-50 text-lg">Nuestra Historia Juntos</p>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+                <path fill="rgba(255,255,255,0.2)" d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+                <path fill="rgba(255,255,255,0.2)" d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
+                <path fill="rgba(255,255,255,0.2)" d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="px-4 -mt-8 relative z-10">
+        <!-- Hero con efecto glass -->
+        <section class="my-6 fade-in">
+            <div class="glass-effect rounded-3xl shadow-2xl p-6 mx-2 backdrop-blur-sm">
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-400 to-orange-400 rounded-full mx-auto mb-4 flex items-center justify-center floating">
+                        <span class="text-3xl">🎉</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">1er Aniversario</h2>
+                    <h3 class="text-xl font-semibold text-blue-100 mb-4">de Amistad</h3>
+                </div>
+                
+                <div class="bg-white bg-opacity-20 rounded-2xl p-4 mb-6">
+                    <p class="text-white text-center font-medium italic">
+                        "Te quiero muchísimo 💙"
+                    </p>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Galería de fotos principal -->
+        <section class="my-6 fade-in">
+            <div class="glass-effect rounded-3xl shadow-xl p-6 mx-2">
+                <h3 class="text-xl font-bold text-white text-center mb-4">Nuestra Mejores Fotos Juntos</h3>
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="src/Fotos en iCloud/IMG_2161.JPG" alt="Mejor foto juntos" class="carousel-image">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="src/Fotos en iCloud/MVIMG_20250205_221346.jpg" alt="Mejor foto juntos" class="carousel-image">
+                    </div>
+                </div>
+                <p class="text-blue-100 text-center text-sm mt-2">La foto que más nos representa</p>
+            </div>
+        </section>
+
+        <!-- Timeline extendido con carruseles -->
+        <section class="my-6 fade-in">
+            <div class="glass-effect rounded-3xl shadow-xl p-6 mx-2">
+                <h3 class="text-xl font-bold text-white text-center mb-6">Nuestros Momentos Especiales</h3>
+                
+                <div class="relative pl-8">
+                    <div class="timeline-line"></div>
+                    
+                    
+                    <!-- Momento 1 - Día del Sushi -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-green-400 to-green-600 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">2</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Día del Sushi</h4>
+                                    <p class="text-blue-100 text-sm mb-2">Primer sushi</p>
+                                    <div class="carousel-container mb-2" id="carousel-2">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_1819.JPG" alt="Comiendo sushi" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_1814.JPG" alt="Comiendo sushi" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_20241224_145941.jpg" alt="Comiendo sushi" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_1887.JPG" alt="Comiendo sushi" class="carousel-image">
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Chuchi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 2 - Mascarillas Faciales -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-pink-400 to-pink-600 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">3</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Mascarillas</h4>
+                                    <p class="text-blue-100 text-sm mb-2">Primera vez</p>
+                                    <div class="carousel-container mb-2" id="carousel-3">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_1877.JPG" alt="Mascarillas Faciales" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_1882.JPG" alt="Mascarillas Faciales" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/MVIMG_20250105_194624.jpg" alt="Mascarillas Faciales" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_1887.JPG" alt="Mascarillas Faciales" class="carousel-image">
+                                        </div> 
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Mascarillas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 3 - Feria y Luna Rosa -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-purple-400 to-purple-600 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">4</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Feria</h4>
+                                    <p class="text-blue-100 text-sm mb-2">Ultimo dia de feria</p>
+                                    <div class="carousel-container mb-2" id="carousel-4">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_20250119_133654.jpg" alt="Feria" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/MVIMG_20250119_125518.jpg" alt="Feria" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_1971.JPG" alt="Feria" class="carousel-image">
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Puta montaña rusa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 5 - Escape a la Bolera -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">5</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Luna rosa</h4>
+                                    <p class="text-blue-100 text-sm mb-2">No era tan rosa</p>
+                                    <div class="carousel-container mb-2" id="carousel-5">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_2645.JPG" alt="Luna Rosa" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2642.JPEG" alt="Luna Rosa" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2578.JPEG" alt="Luna Rosa" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2596.JPEG" alt="Luna Rosa" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2561.JPEG" alt="Luna Rosa" class="carousel-image">
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Pero se veia bien</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 6 - Videocurrículum -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-indigo-400 to-blue-500 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">6</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Videocurrículum</h4>
+                                    <p class="text-blue-100 text-sm mb-2">En mi casa</p>
+                                    <div class="carousel-container mb-2" id="carousel-6">
+                                        <div class="carousel-slide active">
+                                            <video src="src/Fotos en iCloud/7d9f496f02a8442e8a8d0ca600befb89.MP4" type="video/mp4" controls class="carousel-image"></video>
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">¿Recuerdas que lo borré?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 7 - Mascarillas Parte 2 -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-red-400 to-pink-500 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">7</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Mascarillas Parte 2</h4>
+                                    <p class="text-blue-100 text-sm mb-2">Segunda sesión</p>
+                                    <div class="carousel-container mb-2" id="carousel-7">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_2226.JPG" alt="Mascarillas 2" class="carousel-image">
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Que random todo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 8 - Fiesta en Clase -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-teal-400 to-green-500 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">8</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Pizzas en Clase</h4>
+                                    <p class="text-blue-100 text-sm mb-2">Encerrados en el insti</p>
+                                    <div class="carousel-container mb-2" id="carousel-8">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_2275.JPG" alt="Fiesta en Clase" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2264.JPG" alt="Fiesta en Clase" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <video src="src/Fotos en iCloud/IMG_2271.MP4" type="video/mp4" controls alt="Fiesta en Clase" class="carousel-image"></video>
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">La mejor noche</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 9 - Cena de Graduación -->
+                    <div class="memory-card mb-6 relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-orange-400 to-red-500 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">9</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Graduación</h4>
+                                    <p class="text-blue-100 text-sm mb-2">Casi ni llegas</p>
+                                    <div class="carousel-container mb-2" id="carousel-9">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/c4ceea51-6b9e-49b4-a01a-edda9f2acc97.jpg" alt="Graduación" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2362.JPG" alt="Graduación" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide">
+                                            <img src="src/Fotos en iCloud/IMG_2364.JPG" alt="Graduación" class="carousel-image">
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Primer logro juntos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Momento 11 - Mascarillas Parte 3 -->
+                    <div class="memory-card relative">
+                        <div class="shine-effect bg-white bg-opacity-20 rounded-xl p-4 ml-4">
+                            <div class="flex items-start">
+                                <div class="bg-gradient-to-r from-pink-400 to-red-400 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 absolute -left-10">
+                                    <span class="text-white font-bold text-sm">11</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-white">Mascarillas Parte 3</h4>
+                                    <p class="text-blue-100 text-sm mb-2">La trilogía completa</p>
+                                    <div class="carousel-container mb-2" id="carousel-11">
+                                        <div class="carousel-slide active">
+                                            <img src="src/Fotos en iCloud/IMG_2873.JPG" alt="Mascarillas 3" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide ">
+                                            <img src="src/Fotos en iCloud/IMG_2879.JPG" alt="Mascarillas 3" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide ">
+                                            <img src="src/Fotos en iCloud/9ADC01B5-3594-4174-9FA3-3F59B47E8F10.jpg" alt="Mascarillas 3" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide ">
+                                            <img src="src/Fotos en iCloud/8277D96B-EE84-4CE5-ADE2-0C0002ADEA27.jpg" alt="Mascarillas 3" class="carousel-image">
+                                        </div>
+                                        <div class="carousel-slide ">
+                                            <img src="src/Fotos en iCloud/EE96AFB5-7198-4572-B9DF-1960E4876D20.jpg" alt="Mascarillas 3" class="carousel-image">
+                                        </div>
+                                    </div>
+                                    <p class="text-blue-50 text-xs">Nos pusimos mierda de burro</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mensaje final -->
+        <section class="my-6 fade-in">
+            <div class="glass-effect rounded-3xl shadow-xl p-6 mx-2 text-center">
+                <div class="text-4xl mb-4">💙🧡</div>
+                <h3 class="text-xl font-bold text-white mb-3">Gracias por todo, Mady</h3>
+                <p class="text-blue-100 mb-4">
+                    Por ser la mejor compañera de clase, compañera de trabajo y companera de vida.
+                </p>
+                <div class="text-2xl">🌟</div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    // Animaciones al scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Sistema de carruseles completo
+    function initCarousels() {
+        // Inicializar todos los carruseles
+        document.querySelectorAll('.carousel-container').forEach(carousel => {
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Crear navegación si hay más de una slide
+            if (totalSlides > 1) {
+                // Crear botones de navegación
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'carousel-nav carousel-prev';
+                prevBtn.innerHTML = '❮';
+                prevBtn.addEventListener('click', () => showSlide(carousel, currentSlide - 1));
+                
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'carousel-nav carousel-next';
+                nextBtn.innerHTML = '❯';
+                nextBtn.addEventListener('click', () => showSlide(carousel, currentSlide + 1));
+                
+                carousel.appendChild(prevBtn);
+                carousel.appendChild(nextBtn);
+                
+                // Crear indicadores de página
+                const dotsContainer = document.createElement('div');
+                dotsContainer.className = 'carousel-dots';
+                
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'carousel-dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => showSlide(carousel, i));
+                    dotsContainer.appendChild(dot);
+                }
+                
+                carousel.appendChild(dotsContainer);
+            }
+            
+            // Función para mostrar una slide específica
+            function showSlide(carousel, slideIndex) {
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                
+                // Ajustar índice si se sale de rango
+                if (slideIndex >= slides.length) slideIndex = 0;
+                if (slideIndex < 0) slideIndex = slides.length - 1;
+                
+                // Ocultar todas las slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                // Remover clase activa de todos los puntos
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Mostrar slide actual
+                slides[slideIndex].classList.add('active');
+                if (dots[slideIndex]) dots[slideIndex].classList.add('active');
+                
+                currentSlide = slideIndex;
+            }
+        });
+    }
+
+    // Inicializar cuando la página cargue
+    document.addEventListener('DOMContentLoaded', initCarousels);
+</script>
+</body>
+</html>
